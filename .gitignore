@@ -10,3 +10,6 @@ package-lock.json
 _*.py
 _*.js
 .DS_Store
+
+# Caché local de Wrangler/Cloudflare (no publicar)
+.wrangler/
