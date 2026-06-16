@@ -35,31 +35,77 @@
 })();
 
 // ── Mobile menu ──
+// Menú móvil accesible: sincroniza aria-expanded/aria-label, mueve el foco al abrir,
+// atrapa el foco dentro (Tab/Shift+Tab cíclico), cierra con Escape y devuelve el foco.
 (function () {
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   if (!hamburger || !mobileMenu) return;
 
+  // Botón de cierre interno (creado por JS).
   const closeBtn = document.createElement('button');
   closeBtn.className = 'mobile-menu-close';
   closeBtn.setAttribute('aria-label', 'Cerrar menú');
   closeBtn.innerHTML = '&#10005;';
   mobileMenu.prepend(closeBtn);
 
+  // Devuelve los elementos enfocables actuales dentro del menú (cierre + enlaces).
+  const getFocusables = () =>
+    mobileMenu.querySelectorAll('a[href], button:not([disabled])');
+
+  // Atrapa el foco dentro del menú mientras está abierto (foco cíclico).
+  const trapFocus = (e) => {
+    if (e.key !== 'Tab') return;
+    const items = getFocusables();
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus(); // del primero salta al último
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus(); // del último vuelve al primero
+    }
+  };
+
+  // Abre el menú: estado ARIA, foco al primer enlace y activación del trap.
+  const openMenu = () => {
+    hamburger.classList.add('open');
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Cerrar menú');
+    // Movemos el foco al primer enlace del menú (saltando el botón de cierre).
+    const firstLink = mobileMenu.querySelector('a[href]');
+    (firstLink || closeBtn).focus();
+    document.addEventListener('keydown', trapFocus);
+  };
+
+  // Cierra el menú: estado ARIA, libera el trap y devuelve el foco a la hamburguesa.
   const closeMenu = () => {
     hamburger.classList.remove('open');
     mobileMenu.classList.remove('open');
     document.body.style.overflow = '';
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Abrir menú');
+    document.removeEventListener('keydown', trapFocus);
+    hamburger.focus(); // devolvemos el foco al disparador
   };
 
+  // Alterna abrir/cerrar según el estado actual.
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    if (mobileMenu.classList.contains('open')) closeMenu();
+    else openMenu();
   });
   closeBtn.addEventListener('click', closeMenu);
   mobileMenu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', closeMenu);
+  });
+
+  // Cierre con la tecla Escape mientras el menú está abierto.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
   });
 })();
 
@@ -73,18 +119,55 @@
   reveals.forEach(el => observer.observe(el));
 })();
 
-// ── Cookie Banner ──
+// ── Consentimiento de cookies + Plausible ──
+// Gestiona el banner de cookies y la carga condicional de la analítica Plausible.
+// Solo se inyecta Plausible si el usuario ha ACEPTADO (requisito legal/AEPD).
 (function () {
+  const CONSENT_KEY = 'novera_cookie_consent'; // clave en localStorage
   const banner = document.getElementById('cookieBanner');
-  if (!banner) return;
-  const choice = localStorage.getItem('novera_cookies');
-  if (!choice) {
-    setTimeout(() => banner.classList.add('show'), 1800);
+
+  // Inyecta dinámicamente el script de Plausible en el <head>.
+  // Solo se llama cuando el consentimiento es 'accepted'. Evita duplicados.
+  const cargarPlausible = () => {
+    if (document.getElementById('plausible-analytics')) return; // ya cargado
+    const s = document.createElement('script');
+    s.id = 'plausible-analytics';
+    s.defer = true;
+    s.setAttribute('data-domain', 'ejemplo.danimefle.com');
+    s.src = 'https://analytics.danimefle.com/js/script.js';
+    document.head.appendChild(s);
+  };
+
+  // Al cargar, comprobamos el consentimiento previo guardado.
+  const consent = localStorage.getItem(CONSENT_KEY);
+  if (consent === 'accepted') {
+    // Ya aceptó en una visita anterior → cargamos analítica directamente.
+    cargarPlausible();
   }
-  document.querySelectorAll('[data-cookie-action]').forEach(btn => {
+
+  // Si no hay banner en esta página, no seguimos (pero Plausible ya se gestionó arriba).
+  if (!banner) return;
+
+  // Si todavía no hay decisión guardada, mostramos el banner.
+  if (!consent) {
+    banner.hidden = false; // lo hacemos visible al DOM
+    // Pequeño retardo para que la transición de entrada se aprecie.
+    setTimeout(() => banner.classList.add('show'), 800);
+  }
+
+  // Oculta el banner con la transición de salida y luego lo retira del flujo.
+  const ocultarBanner = () => {
+    banner.classList.remove('show');
+    setTimeout(() => { banner.hidden = true; }, 600); // espera al fin de la transición
+  };
+
+  // Gestiona el clic en los botones Aceptar / Rechazar.
+  banner.querySelectorAll('[data-cookie-action]').forEach(btn => {
     btn.addEventListener('click', () => {
-      localStorage.setItem('novera_cookies', btn.dataset.cookieAction);
-      banner.classList.remove('show');
+      const accion = btn.dataset.cookieAction; // 'accepted' | 'rejected'
+      localStorage.setItem(CONSENT_KEY, accion); // persistimos la decisión
+      if (accion === 'accepted') cargarPlausible(); // solo cargamos si acepta
+      ocultarBanner();
     });
   });
 })();
@@ -110,15 +193,26 @@
 })();
 
 // ── Hero Slider ──
+// Carrusel del hero a 6000ms. Respeta prefers-reduced-motion (no auto-rota) y
+// admite un botón de pausa/play (.hero-slider-pause) con su estado ARIA.
 (function () {
   const slider = document.querySelector('.hero-slider');
   if (!slider) return;
   const slides = slider.querySelectorAll('.hero-slide');
   const dots = document.querySelectorAll('.hero-slider-dot');
   const label = document.querySelector('.hero-slide-label');
+  const pauseBtn = document.querySelector('.hero-slider-pause');
   if (slides.length <= 1) return;
 
+  const INTERVALO = 6000; // ms entre diapositivas (antes 1200, mareante)
+  // ¿El usuario prefiere menos movimiento? Si es así, no auto-rotamos.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   let current = 0;
+  let timer = null;       // referencia del setInterval activo
+  let pausado = reduceMotion; // arrancamos pausado si se prefiere menos movimiento
+
+  // Muestra la diapositiva i y sincroniza dots y etiqueta.
   const activate = (i) => {
     slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
     dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
@@ -132,11 +226,39 @@
     current = i;
   };
 
+  // Arranca la auto-rotación (solo si no está pausada ni se prefiere menos movimiento).
+  const iniciar = () => {
+    if (pausado || reduceMotion) return;
+    clearInterval(timer);
+    timer = setInterval(() => activate((current + 1) % slides.length), INTERVALO);
+  };
+  // Detiene la auto-rotación.
+  const detener = () => clearInterval(timer);
+
+  // Navegación manual por los dots.
   dots.forEach((dot, i) => dot.addEventListener('click', () => activate(i)));
 
-  let timer = setInterval(() => activate((current + 1) % slides.length), 1200);
-  slider.addEventListener('mouseenter', () => clearInterval(timer));
-  slider.addEventListener('mouseleave', () => { timer = setInterval(() => activate((current + 1) % slides.length), 1200); });
+  // Botón de pausa/play: alterna el estado y actualiza ARIA.
+  if (pauseBtn) {
+    // Refleja el estado inicial (importante si arranca pausado por reduce-motion).
+    const syncPauseBtn = () => {
+      pauseBtn.setAttribute('aria-pressed', pausado ? 'true' : 'false');
+      pauseBtn.setAttribute('aria-label',
+        pausado ? 'Reanudar presentación automática' : 'Pausar presentación automática');
+    };
+    syncPauseBtn();
+    pauseBtn.addEventListener('click', () => {
+      pausado = !pausado;
+      if (pausado) detener(); else iniciar();
+      syncPauseBtn();
+    });
+  }
+
+  // Pausa al pasar el ratón por encima y reanuda al salir (si no está pausado a mano).
+  slider.addEventListener('mouseenter', detener);
+  slider.addEventListener('mouseleave', iniciar);
+
+  iniciar(); // arranque
 })();
 
 // ── Lightbox para Portfolio ──
@@ -171,25 +293,33 @@
   }).filter(x => x.src);
 
   let currentIdx = 0;
+  let lastTrigger = null; // elemento que abrió el lightbox (para devolver el foco)
 
   const show = (i) => {
     currentIdx = (i + images.length) % images.length;
     const big = images[currentIdx].src.replace(/[?&]w=\d+/, '').replace(/\?q=\d+/, '') + (images[currentIdx].src.includes('unsplash.com') ? '?w=1800&q=90' : '');
     img.src = big;
-    caption.textContent = [images[currentIdx].title, images[currentIdx].tag].filter(Boolean).join(' · ');
+    // alt descriptivo con el título del proyecto (nunca vacío) por accesibilidad.
+    const titulo = [images[currentIdx].title, images[currentIdx].tag].filter(Boolean).join(' · ');
+    img.alt = titulo || 'Imagen del proyecto';
+    caption.textContent = titulo;
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
+    close.focus(); // movemos el foco dentro del modal (botón cerrar)
   };
 
   const hide = () => {
     lb.classList.remove('open');
     document.body.style.overflow = '';
+    // Devolvemos el foco al elemento que abrió el lightbox.
+    if (lastTrigger) { lastTrigger.focus(); lastTrigger = null; }
   };
 
   items.forEach((el, i) => {
     el.addEventListener('click', (e) => {
       if (el.tagName === 'A' && el.getAttribute('href') && el.getAttribute('href') !== '#') return;
       e.preventDefault();
+      lastTrigger = el; // recordamos el disparador
       show(i);
     });
   });
@@ -207,13 +337,34 @@
 })();
 
 // ── La Florecilla Modal ──
+// Modal accesible: gestiona aria-hidden, mueve el foco dentro al abrir,
+// lo devuelve al disparador al cerrar y cierra con Escape.
 (function () {
   const modal = document.getElementById('florecillaModal');
   if (!modal) return;
   const openers = document.querySelectorAll('[data-open-florecilla]');
   const closers = modal.querySelectorAll('[data-close-florecilla]');
-  const open = (e) => { e?.preventDefault(); modal.classList.add('open'); document.body.style.overflow = 'hidden'; };
-  const close = () => { modal.classList.remove('open'); document.body.style.overflow = ''; };
+  let lastTrigger = null; // elemento que abrió el modal
+
+  const open = (e) => {
+    e?.preventDefault();
+    lastTrigger = e?.currentTarget || null; // recordamos el disparador
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false'); // visible para lectores de pantalla
+    document.body.style.overflow = 'hidden';
+    // Movemos el foco al primer elemento enfocable del modal (normalmente el botón cerrar).
+    const focusable = modal.querySelector('a[href], button:not([disabled])');
+    if (focusable) focusable.focus();
+  };
+
+  const close = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true'); // oculto para lectores de pantalla
+    document.body.style.overflow = '';
+    // Devolvemos el foco al disparador.
+    if (lastTrigger) { lastTrigger.focus(); lastTrigger = null; }
+  };
+
   openers.forEach(btn => btn.addEventListener('click', open));
   closers.forEach(btn => btn.addEventListener('click', close));
   modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
@@ -221,12 +372,42 @@
 })();
 
 // ── Active nav link ──
+// Marca el enlace de la página actual con la clase .active y aria-current="page".
 (function () {
   const path = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
     const href = a.getAttribute('href');
     if (href === path || (path === 'index.html' && href === 'index.html')) {
       a.classList.add('active');
+      a.setAttribute('aria-current', 'page'); // accesibilidad: enlace activo
     }
+  });
+})();
+
+// ── Formularios (demo) ──
+// Intercepta el envío de los formularios de contacto/moda: evita la recarga,
+// resetea los campos y muestra un mensaje accesible en el contenedor .form-status
+// (role="status" aria-live="polite"). No hay backend: comportamiento de demostración.
+(function () {
+  const forms = document.querySelectorAll('.contact-form, .contact-form-simple, form[data-demo]');
+  if (!forms.length) return;
+
+  forms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // sin backend, evitamos la recarga
+      form.reset();       // limpiamos los campos
+
+      // Buscamos el contenedor de estado: dentro del form o como hermano cercano.
+      const status = form.querySelector('.form-status') ||
+                     form.parentElement?.querySelector('.form-status');
+      if (status) {
+        // Escribimos el mensaje de confirmación en la zona aria-live.
+        status.textContent = 'Gracias por tu mensaje. Te responderemos lo antes posible.';
+        status.classList.add('visible');
+      } else {
+        // Si no existe el contenedor, mantenemos el fallback de demo sin fallar.
+        alert('Gracias por tu mensaje. Te responderemos lo antes posible.');
+      }
+    });
   });
 })();

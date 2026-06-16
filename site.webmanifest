@@ -1,0 +1,13 @@
+{
+  "name": "NÓVERA — Estudio creativo",
+  "short_name": "NÓVERA",
+  "description": "Estudio creativo multidisciplinar: moda, branding, eventos, interiorismo y arquitectura.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    { "src": "assets/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

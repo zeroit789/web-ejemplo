@@ -10,11 +10,14 @@
   <meta property="og:title" content="NÓVERA — Creatividad multidisciplinar" />
   <meta property="og:description" content="NÓVERA — Interiorismo, Branding, Moda, Arquitectura y Asistencia Ejecutiva. Empresa matriz creativa multidisciplinar." />
   <meta property="og:url" content="https://ejemplo.danimefle.com/" />
-  <meta property="og:image" content="https://ejemplo.danimefle.com/assets/img/moda/moda-01.jpg" />
+  <meta property="og:image" content="https://ejemplo.danimefle.com/assets/img/og-novera.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NÓVERA — estudio creativo multidisciplinar" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="NÓVERA — Creatividad multidisciplinar" />
   <meta name="twitter:description" content="NÓVERA — Interiorismo, Branding, Moda, Arquitectura y Asistencia Ejecutiva. Empresa matriz creativa multidisciplinar." />
-  <meta name="twitter:image" content="https://ejemplo.danimefle.com/assets/img/moda/moda-01.jpg" />
+  <meta name="twitter:image" content="https://ejemplo.danimefle.com/assets/img/og-novera.jpg" />
   <link rel="canonical" href="https://ejemplo.danimefle.com/" />
   <script type="application/ld+json">
   {
@@ -46,11 +49,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
-  <!-- Analítica web (Plausible, sin cookies, RGPD-friendly) -->
-  <script defer data-domain="ejemplo.danimefle.com" src="https://analytics.danimefle.com/js/script.js"></script>
   <!-- Metadatos SEO adicionales: autor y color de tema del navegador -->
   <meta name="author" content="NÓVERA" />
   <meta name="theme-color" content="#0a0a0a" />
+  <meta name="robots" content="index, follow" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body class="is-home">
 
@@ -61,6 +66,7 @@
   <div id="loader" aria-hidden="true"><span>NÓVERA</span></div>
 
   <!-- Nav -->
+  <header>
             <nav id="mainNav" data-transparent="true" aria-label="Navegación principal">
     <ul class="nav-links nav-links-left">
       <li><a href="index.html">Inicio</a></li>
@@ -95,8 +101,9 @@
       <li><a href="interiorismo.html">Interiorismo</a></li>
       <li><a href="contacto.html">Contacto</a></li>
     </ul>
-    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <button class="hamburger" id="hamburger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
   </nav>
+  </header>
 
   <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu" aria-label="Menú móvil">
@@ -122,7 +129,7 @@
       <div class="hero-slide active" data-label="Moda" role="img" aria-label="Moda" style="background-image:url('assets/img/moda/moda-06.jpg')"></div>
       <div class="hero-slide" data-label="Producci&oacute;n de Eventos" role="img" aria-label="Producción de Eventos" style="background-image:url('assets/img/extra/extra-21-flores-coral.jpg')"></div>
       <div class="hero-slide" data-label="Branding" role="img" aria-label="Branding" style="background-image:url('assets/img/branding/branding-05.jpg')"></div>
-      <div class="hero-slide" data-label="Interiorismo" role="img" aria-label="Interiorismo" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80')"></div>
+      <div class="hero-slide" data-label="Interiorismo" role="img" aria-label="Interiorismo" style="background-image:url('assets/img/ext/photo-1600607687939-ce8a6c25118c.jpg')"></div>
     </div>
     <div class="hero-content">
       <div class="hero-line" aria-hidden="true"></div>
@@ -131,11 +138,12 @@
     </div>
     <div class="hero-slide-label">Moda</div>
     <div class="hero-slider-dots">
-      <button class="hero-slider-dot active" aria-label="Slide 1"></button>
-      <button class="hero-slider-dot" aria-label="Slide 2"></button>
-      <button class="hero-slider-dot" aria-label="Slide 3"></button>
-      <button class="hero-slider-dot" aria-label="Slide 4"></button>
+      <button class="hero-slider-dot active" aria-label="Ver imagen: Moda"></button>
+      <button class="hero-slider-dot" aria-label="Ver imagen: Producción de Eventos"></button>
+      <button class="hero-slider-dot" aria-label="Ver imagen: Branding"></button>
+      <button class="hero-slider-dot" aria-label="Ver imagen: Interiorismo"></button>
     </div>
+    <button class="hero-slider-pause" aria-label="Pausar presentación automática" aria-pressed="false"></button>
     <div class="hero-scroll" aria-hidden="true"><span></span></div>
   </section>
 
@@ -216,7 +224,7 @@
           <p>Galas, pasarelas, lanzamientos y activaciones que se viven antes de contarse.</p>
         </div>
       </a>
-      <a href="interiorismo.html" class="service-visual-card" aria-label="Ver servicio de Interiorismo" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80')">
+      <a href="interiorismo.html" class="service-visual-card" aria-label="Ver servicio de Interiorismo" style="background-image:url('assets/img/ext/photo-1600607687939-ce8a6c25118c.jpg')">
         <span class="card-arrow">&nearr;</span>
         <div class="card-content">
           <div class="card-number">04</div>
@@ -224,7 +232,7 @@
           <p>Espacios &iacute;ntimos y hoteleros que se habitan como si fueran propios.</p>
         </div>
       </a>
-      <a href="asistencia-ejecutiva.html" class="service-visual-card" aria-label="Ver servicio de Asistencia Ejecutiva" style="background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80')">
+      <a href="asistencia-ejecutiva.html" class="service-visual-card" aria-label="Ver servicio de Asistencia Ejecutiva" style="background-image:url('assets/img/ext/photo-1497366216548-37526070297c.jpg')">
         <span class="card-arrow">&nearr;</span>
         <div class="card-content">
           <div class="card-number">05</div>
@@ -232,7 +240,7 @@
           <p>Concierge silencioso y exigente para quien no tiene tiempo que perder.</p>
         </div>
       </a>
-      <a href="arquitectura.html" class="service-visual-card" aria-label="Ver servicio de Arquitectura" style="background-image:url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=80')">
+      <a href="arquitectura.html" class="service-visual-card" aria-label="Ver servicio de Arquitectura" style="background-image:url('assets/img/ext/photo-1487958449943-2429e8be8625.jpg')">
         <span class="card-arrow">&nearr;</span>
         <div class="card-content">
           <div class="card-number">06</div>
@@ -273,7 +281,7 @@
       <a href="portfolio.html" class="portfolio-item" aria-label="Proyecto: Manual de Marca Solenne (Branding)" style="background-image:url('assets/img/extra/extra-04.jpg')">
         <div class="portfolio-info"><h4>Manual de Marca Solenne</h4><span>Branding</span></div>
       </a>
-      <a href="portfolio.html" class="portfolio-item" aria-label="Proyecto: Residencial villas Luxury (Interiorismo)" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80')">
+      <a href="portfolio.html" class="portfolio-item" aria-label="Proyecto: Residencial villas Luxury (Interiorismo)" style="background-image:url('assets/img/ext/photo-1600607687939-ce8a6c25118c.jpg')">
         <div class="portfolio-info"><h4>Residencial villas Luxury</h4><span>Interiorismo</span></div>
       </a>
     </div>
@@ -333,11 +341,22 @@
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 NÓVERA. Todos los derechos reservados.</p>
+      <ul class="footer-links"><li><a href="aviso-legal.html">Aviso legal</a></li><li><a href="politica-privacidad.html">Privacidad</a></li><li><a href="politica-cookies.html">Cookies</a></li></ul>
     </div>
   </footer>
 
   <!-- Cookie Banner -->
 
+  <!-- Banner de consentimiento de cookies/analítica (conforme guía AEPD) -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+    <div class="cookie-banner-inner">
+      <p class="cookie-text">Usamos analítica web respetuosa con tu privacidad para entender cómo se usa el sitio. Puedes aceptarla o rechazarla. Más información en nuestra <a href="politica-cookies.html">política de cookies</a>.</p>
+      <div class="cookie-actions">
+        <button type="button" class="btn-cookie btn-cookie-reject" data-cookie-action="rejected">Rechazar</button>
+        <button type="button" class="btn-cookie btn-cookie-accept" data-cookie-action="accepted">Aceptar</button>
+      </div>
+    </div>
+  </div>
   <script src="assets/script.js"></script>
 </body>
 </html>

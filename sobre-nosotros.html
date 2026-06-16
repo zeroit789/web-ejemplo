@@ -10,11 +10,14 @@
   <meta property="og:title" content="Sobre Nosotros — NÓVERA" />
   <meta property="og:description" content="Conoce NÓVERA — una empresa matriz creativa multidisciplinar. Filosofía, visión y enfoque." />
   <meta property="og:url" content="https://ejemplo.danimefle.com/sobre-nosotros.html" />
-  <meta property="og:image" content="https://ejemplo.danimefle.com/assets/img/moda/moda-01.jpg" />
+  <meta property="og:image" content="https://ejemplo.danimefle.com/assets/img/og-novera.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NÓVERA — estudio creativo multidisciplinar" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Sobre Nosotros — NÓVERA" />
   <meta name="twitter:description" content="Conoce NÓVERA — una empresa matriz creativa multidisciplinar. Filosofía, visión y enfoque." />
-  <meta name="twitter:image" content="https://ejemplo.danimefle.com/assets/img/moda/moda-01.jpg" />
+  <meta name="twitter:image" content="https://ejemplo.danimefle.com/assets/img/og-novera.jpg" />
   <link rel="canonical" href="https://ejemplo.danimefle.com/sobre-nosotros.html" />
   <script type="application/ld+json">
   {
@@ -38,11 +41,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
-  <!-- Analítica web (Plausible, sin cookies, RGPD-friendly) -->
-  <script defer data-domain="ejemplo.danimefle.com" src="https://analytics.danimefle.com/js/script.js"></script>
   <!-- Metadatos SEO adicionales: autor y color de tema del navegador -->
   <meta name="author" content="NÓVERA" />
   <meta name="theme-color" content="#0a0a0a" />
+  <meta name="robots" content="index, follow" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
 
@@ -52,6 +57,7 @@
   <!-- Loader (decorativo: se oculta a lectores de pantalla) -->
   <div id="loader" aria-hidden="true"><span>NÓVERA</span></div>
 
+  <header>
             <nav id="mainNav" data-transparent="true" aria-label="Navegación principal">
     <ul class="nav-links nav-links-left">
       <li><a href="index.html">Inicio</a></li>
@@ -86,8 +92,9 @@
       <li><a href="interiorismo.html">Interiorismo</a></li>
       <li><a href="contacto.html">Contacto</a></li>
     </ul>
-    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <button class="hamburger" id="hamburger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
   </nav>
+  </header>
 
         <div class="mobile-menu" id="mobileMenu" aria-label="Menú móvil">
     <a href="index.html">Inicio</a>
@@ -111,7 +118,7 @@
     <div class="about-hero-bg" role="img" aria-label="Fondo de marca NÓVERA"></div>
     <div class="page-hero-content">
       <p class="kicker">Sobre Nosotros</p>
-      <div class="about-brand">NÓVERA</div>
+      <h1 class="about-brand">NÓVERA</h1>
       <p class="subtitle">Una visi&oacute;n, m&uacute;ltiples disciplinas. Creamos donde la est&eacute;tica se encuentra con la estrategia.</p>
     </div>
   </section>
@@ -167,12 +174,12 @@
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-year">2025</div>
-        <p>Se crean los primeros trabajos de servicios de NÓVERA arropado por empresas del grupo, y se forma el equipo para la constituci&oacute;n y fundaci&oacute;n desde Ibiza, M&aacute;laga y C&oacute;rdoba. Lanzamiento en redes sociales a nivel conceptual y primeros trabajos de Branding y Arquitectura.</p>
+        <p>Se crean los primeros trabajos de servicios de NÓVERA arropado por empresas del grupo, y se forma el equipo para la constituci&oacute;n y fundaci&oacute;n con sede en Madrid. Lanzamiento en redes sociales a nivel conceptual y primeros trabajos de Branding y Arquitectura.</p>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-year">2026</div>
-        <p>Nueva sede en el centro de M&aacute;laga y constituci&oacute;n de Nóvera Atelier S.L. Lanzamiento de la web y consolidaci&oacute;n de &laquo;La Florecilla&raquo; como marca propia conceptual.</p>
+        <p>Nueva sede en el centro de Madrid y constituci&oacute;n de Nóvera Atelier S.L. Lanzamiento de la web y consolidaci&oacute;n de &laquo;La Florecilla&raquo; como marca propia conceptual.</p>
       </div>
     </div>
   </section>
@@ -278,9 +285,20 @@
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 NÓVERA. Todos los derechos reservados.</p>
+      <ul class="footer-links"><li><a href="aviso-legal.html">Aviso legal</a></li><li><a href="politica-privacidad.html">Privacidad</a></li><li><a href="politica-cookies.html">Cookies</a></li></ul>
     </div>
   </footer>
 
+  <!-- Banner de consentimiento de cookies/analítica (conforme guía AEPD) -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+    <div class="cookie-banner-inner">
+      <p class="cookie-text">Usamos analítica web respetuosa con tu privacidad para entender cómo se usa el sitio. Puedes aceptarla o rechazarla. Más información en nuestra <a href="politica-cookies.html">política de cookies</a>.</p>
+      <div class="cookie-actions">
+        <button type="button" class="btn-cookie btn-cookie-reject" data-cookie-action="rejected">Rechazar</button>
+        <button type="button" class="btn-cookie btn-cookie-accept" data-cookie-action="accepted">Aceptar</button>
+      </div>
+    </div>
+  </div>
   <script src="assets/script.js"></script>
 </body>
 </html>

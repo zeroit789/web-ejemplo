@@ -10,11 +10,14 @@
   <meta property="og:title" content="Servicios — NÓVERA" />
   <meta property="og:description" content="Servicios NÓVERA — Branding, Interiorismo, Moda, Arquitectura, Event Producer y Asistencia Ejecutiva." />
   <meta property="og:url" content="https://ejemplo.danimefle.com/servicios.html" />
-  <meta property="og:image" content="https://ejemplo.danimefle.com/assets/img/moda/moda-01.jpg" />
+  <meta property="og:image" content="https://ejemplo.danimefle.com/assets/img/og-novera.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="NÓVERA — estudio creativo multidisciplinar" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Servicios — NÓVERA" />
   <meta name="twitter:description" content="Servicios NÓVERA — Branding, Interiorismo, Moda, Arquitectura, Event Producer y Asistencia Ejecutiva." />
-  <meta name="twitter:image" content="https://ejemplo.danimefle.com/assets/img/moda/moda-01.jpg" />
+  <meta name="twitter:image" content="https://ejemplo.danimefle.com/assets/img/og-novera.jpg" />
   <link rel="canonical" href="https://ejemplo.danimefle.com/servicios.html" />
   <script type="application/ld+json">
   {
@@ -38,11 +41,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
-  <!-- Analítica web (Plausible, sin cookies, RGPD-friendly) -->
-  <script defer data-domain="ejemplo.danimefle.com" src="https://analytics.danimefle.com/js/script.js"></script>
   <!-- Metadatos SEO adicionales: autor y color de tema del navegador -->
   <meta name="author" content="NÓVERA" />
   <meta name="theme-color" content="#0a0a0a" />
+  <meta name="robots" content="index, follow" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
 
@@ -52,6 +57,7 @@
   <!-- Loader (decorativo: se oculta a lectores de pantalla) -->
   <div id="loader" aria-hidden="true"><span>NÓVERA</span></div>
 
+  <header>
             <nav id="mainNav" data-transparent="true" aria-label="Navegación principal">
     <ul class="nav-links nav-links-left">
       <li><a href="index.html">Inicio</a></li>
@@ -86,8 +92,9 @@
       <li><a href="interiorismo.html">Interiorismo</a></li>
       <li><a href="contacto.html">Contacto</a></li>
     </ul>
-    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <button class="hamburger" id="hamburger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
   </nav>
+  </header>
 
         <div class="mobile-menu" id="mobileMenu" aria-label="Menú móvil">
     <a href="index.html">Inicio</a>
@@ -107,7 +114,7 @@
   <main id="main">
 
   <section class="page-hero">
-    <div class="hero-bg" role="img" aria-label="Fotografía de un espacio interior de diseño" style="background-image:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80')"></div>
+    <div class="hero-bg" role="img" aria-label="Fotografía de un espacio interior de diseño" style="background-image:url('assets/img/ext/photo-1618221195710-dd6b41faaea6.jpg')"></div>
     <div class="page-hero-content">
       <p class="kicker">Nuestros Servicios</p>
       <h1>Soluciones creativas<br>a medida</h1>
@@ -174,7 +181,7 @@
       </div>
 
       <div class="service-row reverse reveal">
-        <div class="service-row-image" role="img" aria-label="Servicio de Interiorismo de NÓVERA" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80')"></div>
+        <div class="service-row-image" role="img" aria-label="Servicio de Interiorismo de NÓVERA" style="background-image:url('assets/img/ext/photo-1600607687939-ce8a6c25118c.jpg')"></div>
         <div class="service-row-content">
           <span class="big-num">04</span>
           <h3>Interiorismo</h3>
@@ -206,7 +213,7 @@
       </div>
 
       <div class="service-row reverse reveal">
-        <div class="service-row-image" role="img" aria-label="Servicio de Arquitectura de NÓVERA" style="background-image:url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=900&q=80')"></div>
+        <div class="service-row-image" role="img" aria-label="Servicio de Arquitectura de NÓVERA" style="background-image:url('assets/img/ext/photo-1487958449943-2429e8be8625.jpg')"></div>
         <div class="service-row-content">
           <span class="big-num">06</span>
           <h3>Arquitectura</h3>
@@ -268,9 +275,20 @@
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 NÓVERA. Todos los derechos reservados.</p>
+      <ul class="footer-links"><li><a href="aviso-legal.html">Aviso legal</a></li><li><a href="politica-privacidad.html">Privacidad</a></li><li><a href="politica-cookies.html">Cookies</a></li></ul>
     </div>
   </footer>
 
+  <!-- Banner de consentimiento de cookies/analítica (conforme guía AEPD) -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+    <div class="cookie-banner-inner">
+      <p class="cookie-text">Usamos analítica web respetuosa con tu privacidad para entender cómo se usa el sitio. Puedes aceptarla o rechazarla. Más información en nuestra <a href="politica-cookies.html">política de cookies</a>.</p>
+      <div class="cookie-actions">
+        <button type="button" class="btn-cookie btn-cookie-reject" data-cookie-action="rejected">Rechazar</button>
+        <button type="button" class="btn-cookie btn-cookie-accept" data-cookie-action="accepted">Aceptar</button>
+      </div>
+    </div>
+  </div>
   <script src="assets/script.js"></script>
 </body>
 </html>

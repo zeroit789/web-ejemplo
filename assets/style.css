@@ -7,7 +7,7 @@
 :root {
   --black: #0a0a0a;
   --white: #fafafa;
-  --gray: #888;
+  --gray: #6a6a6a; /* contraste AA: 4.5:1 sobre #fafafa (antes #888) */
   --light-gray: #e5e5e5;
   --cream: #f7f5f2;
   --serif: 'Cormorant Garamond', Georgia, serif;
@@ -28,22 +28,56 @@ img { max-width: 100%; display: block; }
 a { color: inherit; }
 
 
-/* ── LOADER ── */
+/* ── LOADER / PRECARGA ── */
+/* Precarga elegante: el wordmark NÓVERA aparece con un revelado suave (fade + blur
+   que se disipa + ligera subida) y una línea fina dorada se dibuja debajo. Al
+   terminar, la lógica de script.js añade .hide para el fundido de salida. */
 #loader {
   position: fixed; inset: 0; z-index: 9999;
   background: var(--black);
   display: flex; align-items: center; justify-content: center;
-  transition: opacity .8s ease, visibility .8s ease;
+  transition: opacity .9s ease, visibility .9s ease;
 }
 #loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+/* Contenedor del wordmark: posiciona la línea inferior (::after). */
 #loader span {
+  position: relative;
   font-family: var(--serif);
+  font-weight: 300;
   font-size: clamp(2rem, 5vw, 4rem);
   color: var(--white);
   letter-spacing: .35em;
-  animation: loaderPulse 1.6s ease-in-out infinite;
+  /* Sangría para compensar el letter-spacing y centrar ópticamente el texto. */
+  text-indent: .35em;
+  padding-bottom: 1.2rem;
+  /* Revelado del nombre: de borroso/desplazado a nítido. */
+  animation: loaderReveal 1.6s cubic-bezier(.22, 1, .36, 1) both;
 }
-@keyframes loaderPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+/* Línea fina dorada que se "dibuja" bajo el nombre tras aparecer este. */
+#loader span::after {
+  content: '';
+  position: absolute; left: 50%; bottom: 0;
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, #b8a07a, transparent);
+  transform: translateX(-50%);
+  animation: loaderLine 1.2s ease .9s forwards; /* arranca cuando el texto ya es visible */
+}
+/* Revelado del wordmark. */
+@keyframes loaderReveal {
+  0%   { opacity: 0; filter: blur(12px); transform: translateY(12px); letter-spacing: .6em; }
+  100% { opacity: 1; filter: blur(0);    transform: translateY(0);    letter-spacing: .35em; }
+}
+/* Trazado de la línea inferior (de 0 a su anchura final). */
+@keyframes loaderLine {
+  0%   { width: 0; opacity: 0; }
+  100% { width: 140%; opacity: 1; }
+}
+/* Accesibilidad: sin animación intensa para quien prefiere menos movimiento.
+   Mostramos el nombre y la línea ya en su estado final, sin transiciones bruscas. */
+@media (prefers-reduced-motion: reduce) {
+  #loader span { animation: none; opacity: 1; filter: none; transform: none; }
+  #loader span::after { animation: none; width: 140%; opacity: 1; }
+}
 
 /* ── NAV ── */
 nav#mainNav {
@@ -137,7 +171,8 @@ nav.solid .nav-links .dropdown a { color: var(--black); }
 .nav-links .dropdown a:hover { background: rgba(255,255,255,.06); color: var(--white); }
 nav.scrolled .nav-links .dropdown a:hover,
 nav.solid .nav-links .dropdown a:hover { background: #f1f1f1; color: var(--black); }
-.nav-links li.has-dropdown:hover .dropdown {
+.nav-links li.has-dropdown:hover .dropdown,
+.nav-links li.has-dropdown:focus-within .dropdown {
   opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
 }
 .nav-links .dropdown-toggle::before {
@@ -146,7 +181,8 @@ nav.solid .nav-links .dropdown a:hover { background: #f1f1f1; color: var(--black
   transform: rotate(45deg); margin-right: .4rem;
   transition: transform .25s;
 }
-.nav-links li.has-dropdown:hover .dropdown-toggle::before {
+.nav-links li.has-dropdown:hover .dropdown-toggle::before,
+.nav-links li.has-dropdown:focus-within .dropdown-toggle::before {
   transform: rotate(225deg);
 }
 
@@ -191,7 +227,7 @@ nav.solid .hamburger span { background: var(--black); }
 .hero-slide.active { opacity: 1; }
 .hero-slide::before {
   content: ''; position: absolute; inset: 0;
-  background: rgba(0,0,0,.5);
+  background: rgba(0,0,0,.6); /* capa más oscura para legibilidad del texto (antes .5) */
 }
 .hero-slider-dots {
   position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
@@ -200,14 +236,46 @@ nav.solid .hamburger span { background: var(--black); }
 .hero-slider-dot {
   width: 28px; height: 2px; background: rgba(255,255,255,.3);
   cursor: pointer; transition: background .3s;
-  border: none; padding: 0;
+  border: none;
+  /* Área pulsable >=24px alto (12+2+12) manteniendo la línea fina visible:
+     el padding crea zona táctil y background-clip pinta solo el content-box. */
+  padding: 12px 0;
+  background-clip: content-box;
+  box-sizing: content-box;
 }
-.hero-slider-dot.active { background: var(--white); }
+.hero-slider-dot.active { background: var(--white); background-clip: content-box; }
 .hero-slide-label {
   position: absolute; bottom: 5rem; left: 50%; transform: translateX(-50%);
   font-size: .65rem; font-weight: 500; letter-spacing: .4em;
   text-transform: uppercase; color: rgba(255,255,255,.8);
   z-index: 3; transition: opacity .6s;
+}
+
+/* Botón pausa/play del slider: discreto, junto a los dots, target >=24px. */
+.hero-slider-pause {
+  position: absolute; bottom: 2.1rem; left: calc(50% + 70px);
+  z-index: 4;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid rgba(255,255,255,.35);
+  border-radius: 50%; cursor: pointer; padding: 0;
+  transition: background .3s, border-color .3s, opacity .3s;
+  opacity: .7;
+}
+.hero-slider-pause:hover { opacity: 1; background: rgba(255,255,255,.12); border-color: var(--white); }
+/* Icono de pausa (dos barras) por defecto. */
+.hero-slider-pause::before {
+  content: ''; width: 8px; height: 10px;
+  border-left: 2px solid var(--white); border-right: 2px solid var(--white);
+}
+/* Cuando está pausado (aria-pressed="true") mostramos el icono de play (triángulo). */
+.hero-slider-pause[aria-pressed="true"]::before {
+  width: 0; height: 0;
+  border: none;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid var(--white);
+  margin-left: 2px; /* centrado óptico del triángulo */
 }
 
 /* ── LIGHTBOX ── */
@@ -255,7 +323,7 @@ nav.solid .hamburger span { background: var(--black); }
 }
 .hero-bg::before {
   content: ''; position: absolute; inset: 0;
-  background: rgba(0,0,0,.5);
+  background: rgba(0,0,0,.6); /* capa más oscura para legibilidad del texto (antes .5) */
 }
 .hero-content {
   position: relative; z-index: 3; text-align: center;
@@ -269,7 +337,8 @@ nav.solid .hamburger span { background: var(--black); }
 }
 .hero p {
   font-size: .75rem; font-weight: 400; letter-spacing: .3em; text-transform: uppercase;
-  color: rgba(255,255,255,.6); margin-bottom: 3rem;
+  color: rgba(255,255,255,.9); margin-bottom: 3rem; /* más opaco para legibilidad (antes .6) */
+  text-shadow: 0 1px 3px rgba(0,0,0,.5); /* sombra sutil sobre la foto */
 }
 .hero-line { width: 60px; height: 1px; background: rgba(255,255,255,.3); margin: 0 auto 2rem; }
 .hero-scroll { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); z-index: 2; }
@@ -438,8 +507,9 @@ nav.solid .hamburger span { background: var(--black); }
   margin-bottom: 1.5rem; line-height: 1.1;
 }
 .page-hero .subtitle {
-  font-size: 1rem; font-weight: 300; color: rgba(255,255,255,.7);
+  font-size: 1rem; font-weight: 300; color: rgba(255,255,255,.9); /* más opaco (antes .7) */
   max-width: 600px; margin: 0 auto; line-height: 1.7;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5); /* sombra sutil sobre la foto */
 }
 
 /* ── BREADCRUMB ── */
@@ -814,36 +884,54 @@ footer {
 .footer-bottom .footer-links a:hover { color: var(--white); }
 
 /* ── COOKIE BANNER ── */
-#cookieBanner {
+/* Banner fijo abajo, fondo oscuro translúcido con blur, acorde a la estética.
+   Oculto con [hidden]; visible con .show (entrada suave deslizante). */
+.cookie-banner {
   position: fixed; bottom: 2rem; left: 2rem; right: 2rem;
-  max-width: 540px; z-index: 9000;
-  background: var(--black); color: var(--white);
-  padding: 1.5rem 1.8rem;
-  border: 1px solid rgba(255,255,255,.1);
-  box-shadow: 0 10px 40px rgba(0,0,0,.4);
-  transform: translateY(150%); opacity: 0;
-  transition: transform .6s ease, opacity .6s ease;
+  max-width: 560px; z-index: 9000;
+  background: rgba(10,10,10,.82);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: var(--white);
+  padding: 1.6rem 1.8rem;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 16px 50px rgba(0,0,0,.5);
+  /* Estado de partida (oculto a la vista pero presente para la transición). */
+  transform: translateY(160%); opacity: 0;
+  transition: transform .6s cubic-bezier(.22,1,.36,1), opacity .6s ease;
 }
-#cookieBanner.show { transform: translateY(0); opacity: 1; }
-.cookie-title {
-  font-family: var(--serif); font-size: 1.2rem; font-weight: 400;
-  margin-bottom: .5rem;
-}
+/* [hidden] lo retira por completo del flujo (no animable: es el estado inicial real). */
+.cookie-banner[hidden] { display: none; }
+/* Estado visible tras quitar [hidden] y añadir .show. */
+.cookie-banner.show { transform: translateY(0); opacity: 1; }
+
+.cookie-banner-inner { display: flex; flex-direction: column; gap: 1.2rem; }
 .cookie-text {
-  font-size: .8rem; line-height: 1.6; color: rgba(255,255,255,.65);
-  margin-bottom: 1.2rem;
+  font-size: .82rem; line-height: 1.65; color: rgba(255,255,255,.7);
+  margin: 0;
 }
-.cookie-text a { color: var(--white); border-bottom: 1px solid rgba(255,255,255,.3); text-decoration: none; }
+.cookie-text a {
+  color: var(--white); text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.35);
+  transition: border-color .3s;
+}
+.cookie-text a:hover { border-color: var(--white); }
+
+/* Acciones: ambos botones con IGUAL peso visual (requisito AEPD). */
 .cookie-actions { display: flex; gap: .8rem; flex-wrap: wrap; }
-.cookie-actions button {
-  font-family: var(--sans); font-size: .68rem;
+.btn-cookie {
+  flex: 1 1 auto; min-width: 130px;
+  font-family: var(--sans); font-size: .68rem; font-weight: 500;
   letter-spacing: .2em; text-transform: uppercase;
-  padding: .7rem 1.5rem; cursor: pointer; border: 1px solid var(--white);
-  background: transparent; color: var(--white); transition: all .3s;
+  padding: .8rem 1.5rem; cursor: pointer;
+  border: 1px solid var(--white);
+  background: transparent; color: var(--white);
+  transition: background .3s, color .3s;
 }
-.cookie-actions .accept { background: var(--white); color: var(--black); }
-.cookie-actions .accept:hover { background: transparent; color: var(--white); }
-.cookie-actions .reject:hover { background: var(--white); color: var(--black); }
+/* Mismo tratamiento para Aceptar y Rechazar: misma prominencia, sin botón "estrella". */
+.btn-cookie-accept,
+.btn-cookie-reject { background: transparent; color: var(--white); }
+.btn-cookie:hover { background: var(--white); color: var(--black); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1440px) {
@@ -889,7 +977,7 @@ footer {
   .process-grid, .features { grid-template-columns: 1fr; gap: 1.5rem; }
   .footer-top { grid-template-columns: 1fr; gap: 2rem; }
   .footer-bottom { flex-direction: column; text-align: center; }
-  #cookieBanner { left: 1rem; right: 1rem; bottom: 1rem; padding: 1.2rem; }
+  .cookie-banner { left: 1rem; right: 1rem; bottom: 1rem; padding: 1.3rem; max-width: none; }
 }
 
 /* ── NUEVAS MAQUETACIONES ── */
@@ -1437,6 +1525,23 @@ footer {
   white-space: nowrap; border: 0;
 }
 
+/* Mensaje de estado de los formularios (envío de demo).
+   Aparece solo cuando tiene contenido (.visible lo añade el JS). */
+.form-status {
+  font-size: .85rem; line-height: 1.6;
+  letter-spacing: .02em;
+  margin-top: 1rem;
+  opacity: 0; max-height: 0; overflow: hidden;
+  transition: opacity .4s ease, max-height .4s ease;
+}
+.form-status.visible {
+  opacity: 1; max-height: 6rem;
+  color: #2e7d4f; /* verde sobrio para confirmación */
+}
+/* En bloques de fondo oscuro (contact-form), el verde claro tiene mejor contraste. */
+.contact-form .form-status.visible,
+.bg-dark .form-status.visible { color: #7fd1a3; }
+
 /* Respetar a quien prefiere menos movimiento/animaciones */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -1446,3 +1551,6 @@ footer {
     scroll-behavior: auto !important;
   }
 }
+
+/* La hamburguesa pasó de <div> a <button>: quitamos el aspecto nativo de botón */
+.hamburger { background: none; border: 0; padding: 0; -webkit-appearance: none; appearance: none; }
