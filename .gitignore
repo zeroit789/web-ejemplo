@@ -1,0 +1,12 @@
+# Dependencias Node (solo si se usa el server.js de previsualización)
+node_modules/
+package-lock.json
+
+# Tooling local de editores/agentes (no debe publicarse)
+.claude/
+.omc/
+
+# Ficheros de trabajo temporales
+_*.py
+_*.js
+.DS_Store
