@@ -12,13 +12,15 @@ Plantilla de **web corporativa de diseño** (estudio creativo multidisciplinar) 
 
 ## ✨ Características
 
-- **100% estática** — solo HTML/CSS/JS. Se sirve en cualquier hosting (Nginx, Caddy, Netlify, GitHub Pages, Cloudflare Pages…).
-- **11 páginas** — inicio, sobre nosotros, servicios y 6 páginas de servicio, portfolio y contacto.
-- **Responsive** — diseño fluido de móvil a escritorio, con menú móvil propio.
-- **SEO listo** — `<title>`/`description` por página, Open Graph + Twitter Cards, datos estructurados JSON-LD (`Organization`/`WebSite`/`LocalBusiness`), `sitemap.xml` y `robots.txt`.
-- **Accesibilidad (a11y)** — HTML semántico, textos alternativos en imágenes, roles ARIA, navegación por teclado y enlace «saltar al contenido».
-- **Analítica sin cookies** — integrado con [Plausible](https://plausible.io) (RGPD-friendly, sin banner de cookies).
-- **Interacciones** — slider de portada, galería con lightbox, animaciones al hacer scroll, filtros de portfolio.
+- **100% estática** — solo HTML/CSS/JS, sin frameworks ni build. Se sirve en cualquier hosting (Cloudflare Pages, Netlify, GitHub Pages, Nginx…).
+- **14 páginas** — inicio, sobre nosotros, servicios + 6 de servicio, portfolio, contacto y 3 legales (aviso legal, privacidad, cookies).
+- **Responsive** — diseño fluido de móvil a escritorio, con menú móvil accesible por teclado.
+- **Accesibilidad WCAG 2.2 AA** — HTML semántico, landmarks, `role`/`aria`, foco visible, «saltar al contenido», slider con pausa y `prefers-reduced-motion`. **0 errores** en el validador W3C.
+- **SEO** — `<title>`/`description` únicos, Open Graph + Twitter Cards, JSON-LD, `sitemap.xml`, `robots.txt`, favicons y manifest.
+- **Rendimiento** — imágenes en **WebP** optimizadas y **fuentes autoalojadas** (sin llamadas a Google: más rápido y mejor RGPD).
+- **Seguridad** — cabeceras CSP, HSTS, X-Frame-Options y Permissions-Policy (vía `_headers`); **A+ en Mozilla Observatory**.
+- **Privacidad** — analítica sin cookies ([Plausible](https://plausible.io)) que **solo se carga si el visitante acepta**, con banner de consentimiento conforme a la guía de la AEPD.
+- **Interacciones** — slider de portada con pausa, galería con lightbox, animaciones al scroll, filtros de portfolio.
 
 ---
 
@@ -63,11 +65,15 @@ web-ejemplo/
 ├── interiorismo.html  asistencia-ejecutiva.html  arquitectura.html
 ├── portfolio.html
 ├── contacto.html
+├── aviso-legal.html  politica-privacidad.html  politica-cookies.html
 ├── assets/
 │   ├── style.css           Todos los estilos (variables editables en :root)
-│   ├── script.js           Slider, lightbox, menú móvil, animaciones
+│   ├── script.js           Slider, lightbox, menú móvil, cookies, animaciones
 │   ├── favicon.svg
-│   └── img/                Imágenes (moda, branding, eventos…)
+│   ├── fonts/              Fuentes autoalojadas (woff2) — sin Google Fonts
+│   └── img/                Imágenes en WebP (moda, branding, eventos…)
+├── _headers                Cabeceras de seguridad (Cloudflare Pages)
+├── site.webmanifest
 ├── sitemap.xml
 ├── robots.txt
 └── server.js               Servidor estático opcional para previsualizar
