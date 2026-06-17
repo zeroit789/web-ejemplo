@@ -138,30 +138,33 @@
     document.head.appendChild(s);
   };
 
-  // Al cargar, comprobamos el consentimiento previo guardado.
-  const consent = localStorage.getItem(CONSENT_KEY);
-  if (consent === 'accepted') {
-    // Ya aceptó en una visita anterior → cargamos analítica directamente.
-    cargarPlausible();
-  }
+  // Al cargar, si en una visita anterior se ACEPTÓ, cargamos la analítica directamente.
+  if (localStorage.getItem(CONSENT_KEY) === 'accepted') cargarPlausible();
 
-  // Si no hay banner en esta página, no seguimos (pero Plausible ya se gestionó arriba).
+  // Si no hay banner en esta página, no seguimos (Plausible ya se gestionó arriba).
   if (!banner) return;
 
-  // Si todavía no hay decisión guardada, mostramos el banner.
-  if (!consent) {
-    banner.hidden = false; // lo hacemos visible al DOM
-    // Pequeño retardo para que la transición de entrada se aprecie.
-    setTimeout(() => banner.classList.add('show'), 800);
-  }
+  // Muestra el banner de forma fiable: doble requestAnimationFrame para que el
+  // navegador aplique el estado inicial antes de la transición de entrada.
+  const mostrarBanner = () => {
+    banner.hidden = false;
+    requestAnimationFrame(() => requestAnimationFrame(() => banner.classList.add('show')));
+  };
 
-  // Oculta el banner con la transición de salida y luego lo retira del flujo.
+  // Oculta el banner con la transición de salida. SOLO se llama cuando el usuario
+  // decide (Aceptar/Rechazar): nunca se cierra solo.
   const ocultarBanner = () => {
     banner.classList.remove('show');
     setTimeout(() => { banner.hidden = true; }, 600); // espera al fin de la transición
   };
 
-  // Gestiona el clic en los botones Aceptar / Rechazar.
+  // Reabre el banner para cambiar preferencias (botón en la política de cookies).
+  const reabrirBanner = () => { localStorage.removeItem(CONSENT_KEY); mostrarBanner(); };
+
+  // Si todavía NO hay decisión guardada, mostramos el banner y lo dejamos hasta que el usuario pulse.
+  if (!localStorage.getItem(CONSENT_KEY)) mostrarBanner();
+
+  // Clic en Aceptar / Rechazar: guarda la decisión y oculta.
   banner.querySelectorAll('[data-cookie-action]').forEach(btn => {
     btn.addEventListener('click', () => {
       const accion = btn.dataset.cookieAction; // 'accepted' | 'rejected'
@@ -169,6 +172,12 @@
       if (accion === 'accepted') cargarPlausible(); // solo cargamos si acepta
       ocultarBanner();
     });
+  });
+
+  // Cualquier elemento con [data-cookie-reopen] (p. ej. en la política de cookies)
+  // vuelve a mostrar el banner para cambiar el consentimiento.
+  document.querySelectorAll('[data-cookie-reopen]').forEach(el => {
+    el.addEventListener('click', (e) => { e.preventDefault(); reabrirBanner(); });
   });
 })();
 
