@@ -686,7 +686,7 @@ section { padding: 5rem 3rem; }
   transform: translateY(20px); opacity: 0; transition: all .4s;
 }
 .portfolio-item:hover .portfolio-info { transform: translateY(0); opacity: 1; }
-.portfolio-info h4 {
+.portfolio-info h4, .portfolio-info h3 {
   font-family: var(--serif); font-size: 1.3rem; font-weight: 300;
   letter-spacing: .05em; margin-bottom: .3rem;
 }
@@ -727,7 +727,7 @@ section { padding: 5rem 3rem; }
   font-family: var(--serif); font-size: 2rem; font-weight: 300;
   color: var(--gray); display: block; margin-bottom: 1rem;
 }
-.process-step h4 {
+.process-step h4, .process-step h3 {
   font-family: var(--serif); font-size: 1.3rem; font-weight: 400;
   margin-bottom: .8rem;
 }
@@ -858,7 +858,7 @@ footer {
   font-size: .8rem; line-height: 1.8; color: rgba(255,255,255,.5);
   max-width: 320px;
 }
-.footer-col h5 {
+.footer-col h5, .footer-col h2 {
   font-size: .7rem; font-weight: 600; letter-spacing: .2em;
   text-transform: uppercase; color: var(--white); margin-bottom: 1.2rem;
 }
@@ -1231,7 +1231,7 @@ footer {
   padding: 1.2rem 1.4rem;
   background: #faf7f2;
 }
-.masonry-item .info h4 {
+.masonry-item .info h4, .masonry-item .info h3 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
   font-weight: 500;
@@ -1407,7 +1407,7 @@ footer {
   background: #b8a07a;
   margin: 0 auto 1.2rem;
 }
-.contact-quick-info h5 {
+.contact-quick-info h5, .contact-quick-info h2 {
   font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
