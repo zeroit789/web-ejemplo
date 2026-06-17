@@ -745,7 +745,10 @@ section { padding: 5rem 3rem; }
   padding: 1.8rem 1.5rem; background: var(--cream); border-left: 2px solid var(--black);
 }
 .features-row .feature { padding: 1.5rem 1.2rem; }
-.feature h4 {
+/* Incluye h3 ademas de h4: en sobre-nosotros (Valores) los encabezados pasaron a h3
+   para respetar la jerarquia (h2 -> h3); el resto de paginas siguen usando h4.
+   Ambos comparten el mismo estilo para mantener identico el aspecto visual. */
+.feature h4, .feature h3 {
   font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
   margin-bottom: .7rem;
 }
@@ -1102,7 +1105,9 @@ footer {
   transition: filter 0.4s ease;
 }
 .team-card:hover .team-photo { filter: grayscale(0%); }
-.team-card h4 {
+/* Incluye h3 ademas de h4: en sobre-nosotros (Equipo) los nombres pasaron a h3
+   para respetar la jerarquia (h2 -> h3). Mismo estilo para no alterar el aspecto. */
+.team-card h4, .team-card h3 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.5rem;
   font-weight: 500;
