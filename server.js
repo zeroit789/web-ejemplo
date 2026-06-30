@@ -11,8 +11,9 @@ const http = require('http');   // servidor HTTP nativo de Node
 const fs   = require('fs');     // lectura de ficheros
 const path = require('path');   // manejo de rutas
 
-const PORT = 8080;              // puerto local
-const DIR  = __dirname;         // carpeta raíz = la del proyecto
+const PORT    = 8080;              // puerto local
+const DIR     = __dirname;         // carpeta raíz = la del proyecto
+const SAFE    = path.resolve(DIR); // ruta absoluta canónica (para path traversal check)
 
 // Tabla de tipos MIME por extensión, para que el navegador
 // interprete bien cada fichero (html, css, imágenes, fuentes...).
@@ -37,7 +38,17 @@ http.createServer((req, res) => {
   // "/" -> index.html; el resto, el fichero pedido tal cual.
   // Quitamos la query string (?w=...) para localizar el fichero.
   const urlPath = decodeURIComponent(req.url.split('?')[0]);
-  let filePath = path.join(DIR, urlPath === '/' ? 'index.html' : urlPath);
+  const filePath = path.join(DIR, urlPath === '/' ? 'index.html' : urlPath);
+
+  // Protección path traversal: resolver la ruta y verificar que sigue
+  // dentro del directorio raíz del proyecto (evita /../../../etc/passwd).
+  const resolved = path.resolve(filePath);
+  if (resolved !== SAFE && !resolved.startsWith(SAFE + path.sep)) {
+    res.writeHead(403, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.end('<h1>403 — Acceso denegado</h1>');
+    return;
+  }
+
   const ext = path.extname(filePath).toLowerCase();
 
   fs.readFile(filePath, (err, data) => {
