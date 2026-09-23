@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Metadatos: codificación, viewport, SEO y tarjetas para redes sociales (Open Graph / Twitter) -->
+  <!-- Metadata: encoding, viewport, SEO and social cards (Open Graph / Twitter) -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Contacto NÓVERA — Solicita informaci&oacute;n, presupuesto o consulta inicial gratuita. Madrid.">
@@ -19,6 +21,8 @@
   <meta name="twitter:description" content="Contacto NÓVERA — Solicita información, presupuesto o consulta inicial gratuita. Madrid.">
   <meta name="twitter:image" content="https://ejemplo.danimefle.com/assets/img/og-novera.jpg">
   <link rel="canonical" href="https://ejemplo.danimefle.com/contacto.html">
+  <!-- Datos estructurados JSON-LD (Schema.org, tipo Organization) para buscadores -->
+  <!-- JSON-LD structured data (Schema.org, type Organization) for search engines -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,6 +39,8 @@
     }
   }
   </script>
+  <!-- Datos estructurados JSON-LD (Schema.org, tipo LocalBusiness) para buscadores -->
+  <!-- JSON-LD structured data (Schema.org, type LocalBusiness) for search engines -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -50,9 +56,12 @@
     "description": "Empresa creativa multidisciplinar especializada en Moda, Branding, Eventos, Interiorismo, Asistencia Ejecutiva y Arquitectura."
   }
   </script>
+  <!-- Título de la pestaña, iconos y hoja de estilos -->
+  <!-- Tab title, icons and stylesheet -->
   <title>Contacto — NÓVERA</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <!-- Metadatos SEO adicionales: autor de la web y color de tema para navegadores móviles -->
+  <!-- Additional SEO metadata: site author and theme color for mobile browsers -->
   <meta name="author" content="NÓVERA">
   <meta name="theme-color" content="#0a0a0a">
   <link rel="stylesheet" href="assets/style.css">
@@ -64,11 +73,15 @@
 <body>
 
   <!-- Enlace de salto al contenido principal para usuarios de teclado y lectores de pantalla -->
+  <!-- Skip link to the main content for keyboard and screen reader users -->
   <a href="#main" class="skip-link">Saltar al contenido</a>
 
   <!-- Loader decorativo: oculto a tecnologías de asistencia -->
+  <!-- Decorative loader: hidden from assistive technologies -->
   <div id="loader" aria-hidden="true"><span>NÓVERA</span></div>
 
+  <!-- Cabecera: navegación principal (enlaces a la izquierda, logo al centro, enlaces a la derecha); el botón hamburguesa abre el menú móvil -->
+  <!-- Header: main navigation (links on the left, logo in the center, links on the right); the hamburger button opens the mobile menu -->
   <header>
             <nav id="mainNav" data-transparent="true" aria-label="Navegación principal">
     <ul class="nav-links nav-links-left">
@@ -108,6 +121,8 @@
   </nav>
   </header>
 
+        <!-- Menú móvil a pantalla completa (script.js añade el botón de cierre y gestiona el foco) -->
+        <!-- Full-screen mobile menu (script.js adds the close button and manages focus) -->
         <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menú móvil">
     <a href="index.html">Inicio</a>
     <a href="sobre-nosotros.html">Sobre Nosotros</a>
@@ -123,9 +138,11 @@
   </div>
 
   <!-- Contenido principal de la página (landmark main para accesibilidad) -->
+  <!-- Main page content (main landmark for accessibility) -->
   <main id="main">
 
-  <!-- Page Hero -->
+  <!-- Cabecera de la página con imagen de fondo -->
+  <!-- Page header with a background image -->
   <section class="page-hero">
     <div class="hero-bg" role="img" aria-label="Imagen de cabecera de la página de contacto" style="background-image:url('assets/img/ext/photo-1539037116277-4db20889f2d4.webp')"></div>
     <div class="page-hero-content">
@@ -135,9 +152,12 @@
     </div>
   </section>
 
+  <!-- Ruta de navegación (breadcrumb) -->
+  <!-- Breadcrumb trail -->
   <nav class="breadcrumb" aria-label="Ruta de navegación"><a href="index.html">Inicio</a> <span>/</span> Contacto</nav>
 
-  <!-- Imagen + formulario en dos bloques -->
+  <!-- Imagen + formulario de contacto en dos bloques -->
+  <!-- Image + contact form in two blocks -->
   <section>
     <div class="contact-duo">
       <div class="contact-duo-image reveal" role="img" aria-label="Espacio creativo de NÓVERA" style="background-image:url('assets/img/extra/extra-17-contacto.webp')"></div>
@@ -145,7 +165,8 @@
         <p class="section-label">Escr&iacute;benos</p>
         <h2 class="section-title">Cu&eacute;ntanos<br>tu proyecto</h2>
         <p class="contact-duo-lead">Respondemos en menos de 24 horas laborables con una propuesta personalizada.</p>
-        <!-- Formulario de contacto: cada campo lleva aria-label porque no tiene etiqueta visible -->
+        <!-- Formulario de contacto (demo, sin backend): cada campo lleva aria-label porque no tiene etiqueta visible -->
+        <!-- Contact form (demo, no backend): each field has an aria-label because it has no visible label -->
         <form class="contact-form-simple" aria-label="Formulario de contacto">
           <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required aria-required="true">
           <input type="email" name="email" placeholder="Email" aria-label="Email" required aria-required="true">
@@ -166,7 +187,10 @@
 
   </main>
   <!-- Fin del contenido principal -->
+  <!-- End of main content -->
 
+  <!-- Pie: marca, enlaces de navegación y servicios, contacto y enlaces legales -->
+  <!-- Footer: brand, navigation and service links, contact details and legal links -->
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
@@ -183,7 +207,8 @@
     </div>
   </footer>
 
-  <!-- Banner de consentimiento de cookies/analítica (conforme guía AEPD) -->
+  <!-- Banner de consentimiento de cookies/analítica (conforme a la guía de la AEPD); script.js lo muestra y guarda la decisión -->
+  <!-- Cookie/analytics consent banner (per the AEPD guidelines); script.js shows it and stores the choice -->
   <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
     <div class="cookie-banner-inner">
       <p class="cookie-text">Usamos analítica web respetuosa con tu privacidad para entender cómo se usa el sitio. Puedes aceptarla o rechazarla. Más información en nuestra <a href="politica-cookies.html">política de cookies</a>.</p>
@@ -193,6 +218,8 @@
       </div>
     </div>
   </div>
+  <!-- Script principal: loader, menú, slider, lightbox, cookies y formularios de demo -->
+  <!-- Main script: loader, menu, slider, lightbox, cookies and demo forms -->
   <script src="assets/script.js"></script>
 </body>
 </html>

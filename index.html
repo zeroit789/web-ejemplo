@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Metadatos: codificación, viewport, SEO y tarjetas para redes sociales (Open Graph / Twitter) -->
+  <!-- Metadata: encoding, viewport, SEO and social cards (Open Graph / Twitter) -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="NÓVERA — Interiorismo, Branding, Moda, Arquitectura y Asistencia Ejecutiva. Empresa matriz creativa multidisciplinar.">
@@ -19,6 +21,8 @@
   <meta name="twitter:description" content="NÓVERA — Interiorismo, Branding, Moda, Arquitectura y Asistencia Ejecutiva. Empresa matriz creativa multidisciplinar.">
   <meta name="twitter:image" content="https://ejemplo.danimefle.com/assets/img/og-novera.jpg">
   <link rel="canonical" href="https://ejemplo.danimefle.com/">
+  <!-- Datos estructurados JSON-LD (Schema.org, tipo Organization) para buscadores -->
+  <!-- JSON-LD structured data (Schema.org, type Organization) for search engines -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,6 +39,8 @@
     }
   }
   </script>
+  <!-- Datos estructurados JSON-LD (Schema.org, tipo WebSite) para buscadores -->
+  <!-- JSON-LD structured data (Schema.org, type WebSite) for search engines -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,10 +49,13 @@
     "url": "https://ejemplo.danimefle.com"
   }
   </script>
+  <!-- Título de la pestaña, iconos y hoja de estilos -->
+  <!-- Tab title, icons and stylesheet -->
   <title>NÓVERA — Creatividad multidisciplinar</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="stylesheet" href="assets/style.css">
   <!-- Metadatos SEO adicionales: autor y color de tema del navegador -->
+  <!-- Additional SEO metadata: author and browser theme color -->
   <meta name="author" content="NÓVERA">
   <meta name="theme-color" content="#0a0a0a">
   <meta name="robots" content="index, follow">
@@ -56,13 +65,16 @@
 </head>
 <body class="is-home">
 
-  <!-- Enlace de salto: permite ir directo al contenido saltando la navegacion (accesibilidad teclado/lector) -->
+  <!-- Enlace de salto: permite ir directo al contenido saltando la navegación (accesibilidad teclado/lector) -->
+  <!-- Skip link: jumps straight to the content past the navigation (keyboard/screen reader accessibility) -->
   <a href="#main" class="skip-link">Saltar al contenido</a>
 
   <!-- Loader (decorativo: se oculta a lectores de pantalla) -->
+  <!-- Loader (decorative: hidden from screen readers) -->
   <div id="loader" aria-hidden="true"><span>NÓVERA</span></div>
 
-  <!-- Nav -->
+  <!-- Cabecera: navegación principal (enlaces a la izquierda, logo al centro, enlaces a la derecha); el botón hamburguesa abre el menú móvil -->
+  <!-- Header: main navigation (links on the left, logo in the center, links on the right); the hamburger button opens the mobile menu -->
   <header>
             <nav id="mainNav" data-transparent="true" aria-label="Navegación principal">
     <ul class="nav-links nav-links-left">
@@ -102,7 +114,8 @@
   </nav>
   </header>
 
-  <!-- Mobile Menu -->
+        <!-- Menú móvil a pantalla completa (script.js añade el botón de cierre y gestiona el foco) -->
+        <!-- Full-screen mobile menu (script.js adds the close button and manages focus) -->
         <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menú móvil">
     <a href="index.html">Inicio</a>
     <a href="sobre-nosotros.html">Sobre Nosotros</a>
@@ -118,9 +131,11 @@
   </div>
 
   <!-- Contenido principal (landmark main para accesibilidad) -->
+  <!-- Main content (main landmark for accessibility) -->
   <main id="main">
 
-  <!-- Hero Slider -->
+  <!-- Portada: carrusel de imágenes a pantalla completa con dots y botón de pausa (script.js) -->
+  <!-- Hero: full-screen image carousel with dots and a pause button (script.js) -->
   <section class="hero">
     <div class="hero-slider">
       <div class="hero-slide active" data-label="Moda" role="img" aria-label="Moda" style="background-image:url('assets/img/moda/moda-06.webp')"></div>
@@ -145,6 +160,7 @@
   </section>
 
   <!-- Marquee (decorativo: texto en movimiento, oculto a lectores de pantalla) -->
+  <!-- Marquee (decorative: moving text, hidden from screen readers) -->
   <div class="marquee-container" aria-hidden="true">
     <div class="marquee">
       <span>MODA</span><span class="filled">&middot;</span>
@@ -162,7 +178,8 @@
     </div>
   </div>
 
-  <!-- Intro -->
+  <!-- Introducción: imagen del estudio y texto sobre la marca -->
+  <!-- Intro: studio image and text about the brand -->
   <section>
     <div class="two-col">
       <div class="two-col-image reveal" role="img" aria-label="Equipo creativo de NÓVERA en su estudio" style="background-image:url('assets/img/extra/extra-07.webp')"></div>
@@ -182,7 +199,8 @@
     </div>
   </section>
 
-  <!-- Image break 1 -->
+  <!-- Franja de imagen a ancho completo con frase -->
+  <!-- Full-width image strip with a tagline -->
   <div class="image-break" style="background-image:url('assets/img/extra/extra-13.webp')">
     <div class="image-break-text">
       <h3>Moda, cultura y experiencia</h3>
@@ -190,7 +208,8 @@
     </div>
   </div>
 
-  <!-- Services -->
+  <!-- Servicios: rejilla de 6 tarjetas que enlazan a cada página de servicio -->
+  <!-- Services: grid of 6 cards linking to each service page -->
   <section>
     <div class="container">
       <p class="section-label reveal">Nuestros Servicios</p>
@@ -248,7 +267,8 @@
     </div>
   </section>
 
-  <!-- Image break 2 -->
+  <!-- Franja de imagen a ancho completo con frase -->
+  <!-- Full-width image strip with a tagline -->
   <div class="image-break" style="background-image:url('assets/img/eventos/eventos-09.webp')">
     <div class="image-break-text">
       <h3>Cada proyecto, una nueva visi&oacute;n</h3>
@@ -256,7 +276,8 @@
     </div>
   </div>
 
-  <!-- Portfolio teaser -->
+  <!-- Avance del portfolio: proyectos seleccionados (enlazan a portfolio.html) -->
+  <!-- Portfolio teaser: selected projects (they link to portfolio.html) -->
   <section class="bg-dark">
     <div class="container">
       <p class="section-label reveal">Portfolio</p>
@@ -287,7 +308,8 @@
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- Llamada a la acción: invitación a contactar -->
+  <!-- Call to action: invitation to get in touch -->
   <section>
     <div class="cta-block">
       <p class="section-label">Hablemos</p>
@@ -299,8 +321,10 @@
 
   </main>
   <!-- Fin del contenido principal -->
+  <!-- End of main content -->
 
-  <!-- Footer -->
+  <!-- Pie: marca, enlaces de navegación y servicios, contacto y enlaces legales -->
+  <!-- Footer: brand, navigation and service links, contact details and legal links -->
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
@@ -342,9 +366,8 @@
     </div>
   </footer>
 
-  <!-- Cookie Banner -->
-
-  <!-- Banner de consentimiento de cookies/analítica (conforme guía AEPD) -->
+  <!-- Banner de consentimiento de cookies/analítica (conforme a la guía de la AEPD); script.js lo muestra y guarda la decisión -->
+  <!-- Cookie/analytics consent banner (per the AEPD guidelines); script.js shows it and stores the choice -->
   <div id="cookieBanner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
     <div class="cookie-banner-inner">
       <p class="cookie-text">Usamos analítica web respetuosa con tu privacidad para entender cómo se usa el sitio. Puedes aceptarla o rechazarla. Más información en nuestra <a href="politica-cookies.html">política de cookies</a>.</p>
@@ -354,6 +377,8 @@
       </div>
     </div>
   </div>
+  <!-- Script principal: loader, menú, slider, lightbox, cookies y formularios de demo -->
+  <!-- Main script: loader, menu, slider, lightbox, cookies and demo forms -->
   <script src="assets/script.js"></script>
 </body>
 </html>
