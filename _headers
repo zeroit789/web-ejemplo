@@ -1,4 +1,5 @@
 # Cabeceras de seguridad para todas las rutas (Cloudflare Pages)
+# Security headers for every route (Cloudflare Pages)
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-Frame-Options: SAMEORIGIN
