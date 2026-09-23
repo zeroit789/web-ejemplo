@@ -137,11 +137,7 @@ Al ser una web estática, basta con subir la carpeta a cualquier hosting: Cloudf
 
 ### Limitaciones conocidas
 
-- **Las fuentes no se cargan.** Los `@font-face` de `assets/style.css` usan `url(assets/fonts/...)`, y esa ruta se resuelve desde la carpeta del CSS (`assets/assets/fonts/...`), que no existe. La web se ve con las fuentes de respaldo (Georgia y Helvetica/Arial). Se arregla cambiando esas rutas por `url(fonts/...)`, pero eso cambia el aspecto actual.
-- En el visor de imágenes solo aparece la categoría: `script.js` busca el título en un `h4` y los proyectos usan `h3`.
-- Las páginas legales no tienen enlace «Saltar al contenido», pantalla de precarga, tarjetas de Twitter ni JSON-LD, a diferencia del resto.
-- La producción de eventos aparece como «Producción de Eventos» en el menú y como «Event Producer» en el título de su página y en algunos pies y textos.
-- `style.css` conserva estilos que ninguna página usa (formulario oscuro `.contact-form`, `.legal`, variantes de contacto, FAQ, mapa, bloque de socio). Están marcados con un comentario.
+- `style.css` conserva estilos que ninguna página usa (formulario oscuro `.contact-form`, `.legal`, variantes de contacto, FAQ, mapa, bloque de socio). Se dejan a propósito como variantes de la plantilla y están marcados con el comentario «variante de plantilla, sin uso en esta demo».
 
 ### Licencia
 
@@ -282,11 +278,7 @@ It's a static site, so just upload the folder to any host: Cloudflare Pages, Net
 
 ### Known issues
 
-- **The web fonts don't load.** The `@font-face` rules in `assets/style.css` use `url(assets/fonts/...)`, which resolves relative to the CSS folder (`assets/assets/fonts/...`), a path that doesn't exist. The site renders with the fallback fonts (Georgia and Helvetica/Arial). Changing those paths to `url(fonts/...)` fixes it, but it also changes the current look.
-- The image viewer only shows the category: `script.js` looks for the title in an `h4`, while the projects use `h3`.
-- Unlike the other pages, the legal pages have no "Skip to content" link, preload screen, Twitter cards or JSON-LD.
-- Event production is labeled "Producción de Eventos" in the menu but "Event Producer" in its page title and in some footers and copy.
-- `style.css` still contains styles no page uses (the dark `.contact-form`, `.legal`, contact variants, FAQ, map and partner block). They're flagged with a comment.
+- `style.css` still contains styles no page uses (the dark `.contact-form`, `.legal`, contact variants, FAQ, map and partner block). They're kept on purpose as template variants and flagged with a "template variant, unused in this demo" comment.
 
 ### License
 
