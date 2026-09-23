@@ -563,9 +563,11 @@ nav.solid .hamburger span { background: var(--black); }
   color: rgba(255,255,255,.7); font-size: .75rem; letter-spacing: .2em;
   text-transform: uppercase; text-align: center;
 }
-/* Cursor de lupa en los elementos que abren el lightbox. */
-/* Zoom cursor on elements that open the lightbox. */
-.masonry-item, .portfolio-item { cursor: zoom-in; }
+/* Cursor de lupa solo en los elementos que abren el lightbox (rejilla del portfolio).
+   Las tarjetas de la portada (.portfolio-item) enlazan a portfolio.html y usan cursor: pointer. */
+/* Zoom cursor only on elements that open the lightbox (portfolio grid).
+   The home page cards (.portfolio-item) link to portfolio.html and use cursor: pointer. */
+.masonry-item { cursor: zoom-in; }
 
 /* ── HERO (home) ── */
 /* Portada a pantalla completa con contenido centrado. */
