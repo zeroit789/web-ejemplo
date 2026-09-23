@@ -390,15 +390,15 @@
   const next = lb.querySelector('.lightbox-next');
 
   // Extrae de cada elemento la URL de su background-image (propia o del hijo .img),
-  // su título (h4) y su etiqueta (span). Descarta los que no tienen imagen.
+  // su título (h3, o h4 si alguna variante lo usa) y su etiqueta (span). Descarta los que no tienen imagen.
   // Extracts each element's background-image URL (its own or from its .img child),
-  // its title (h4) and its tag (span). Items without an image are dropped.
+  // its title (h3, or h4 if a variant uses it) and its tag (span). Items without an image are dropped.
   const images = [...items].map(el => {
     const bg = el.style.backgroundImage || '';
     const innerBg = el.querySelector('.img')?.style.backgroundImage || '';
     const style = innerBg || bg;
     const m = style.match(/url\(['"]?([^'"]+)['"]?\)/);
-    const title = el.querySelector('h4')?.textContent?.trim();
+    const title = el.querySelector('h3, h4')?.textContent?.trim();
     const tag = el.querySelector('span')?.textContent?.trim();
     return { src: m ? m[1] : null, title, tag };
   }).filter(x => x.src);
