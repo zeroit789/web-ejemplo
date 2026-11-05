@@ -57,7 +57,7 @@ Las 6 páginas de servicio siguen la misma estructura: cabecera con imagen, pres
 
 - SEO: `title` y `description` propios en cada página, Open Graph, `canonical`, datos estructurados JSON-LD, `sitemap.xml`, `robots.txt`, favicons y `site.webmanifest`.
 - Accesibilidad: HTML semántico con `header`/`main`/`footer`, enlace «Saltar al contenido», textos alternativos en las imágenes de fondo, foco visible y botones con estado ARIA.
-- Seguridad: cabeceras CSP, HSTS, X-Frame-Options, Referrer-Policy y Permissions-Policy definidas en `_headers` (formato de Cloudflare Pages y Netlify).
+- Seguridad: cabeceras CSP (con `frame-ancestors`), HSTS, Referrer-Policy y Permissions-Policy definidas en `_headers` (formato de Cloudflare Pages y Netlify).
 - Imágenes en WebP (60 ficheros, unos 8,6 MB) y fuentes Cormorant Garamond y Montserrat incluidas en el repo (`assets/fonts/`).
 - El código propio (HTML, CSS y JS) está comentado en español e inglés.
 
@@ -198,7 +198,7 @@ The 6 service pages share the same structure: header image, intro, what's includ
 
 - SEO: unique `title` and `description` on every page, Open Graph, `canonical`, JSON-LD structured data, `sitemap.xml`, `robots.txt`, favicons and `site.webmanifest`.
 - Accessibility: semantic HTML with `header`/`main`/`footer`, a "Skip to content" link, alt text for background images, visible focus and buttons with ARIA state.
-- Security: CSP, HSTS, X-Frame-Options, Referrer-Policy and Permissions-Policy headers defined in `_headers` (Cloudflare Pages and Netlify format).
+- Security: CSP (with `frame-ancestors`), HSTS, Referrer-Policy and Permissions-Policy headers defined in `_headers` (Cloudflare Pages and Netlify format).
 - WebP images (60 files, about 8.6 MB) and the Cormorant Garamond and Montserrat fonts bundled in the repo (`assets/fonts/`).
 - All first-party code (HTML, CSS and JS) is commented in Spanish and English.
 

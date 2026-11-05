@@ -2,8 +2,9 @@
 # Security headers for every route (Cloudflare Pages)
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  X-Frame-Options: SAMEORIGIN
+  # Sin X-Frame-Options: frame-ancestors dice qué web puede incrustarla (la caja del portfolio)
+  # No X-Frame-Options: frame-ancestors says which site may embed it (the portfolio's preview box)
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://analytics.danimefle.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://analytics.danimefle.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://analytics.danimefle.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://analytics.danimefle.com; frame-ancestors 'self' https://danimefle.com; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
